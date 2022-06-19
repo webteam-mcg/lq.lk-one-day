@@ -1,8 +1,16 @@
 <template>
   <div>
       <v-toolbar flat color="transparent">
-      <!-- Adjust the height to your needs, mine is 40 -->
       <img :src="require('../assets/logo.png')" height="30"/>
+      <v-spacer></v-spacer>
+      <v-toolbar-items>
+        <v-btn text to="/">
+          <v-icon left>
+            mdi-arrow-left
+          </v-icon>
+          Back
+        </v-btn>
+      </v-toolbar-items>
     </v-toolbar>
       <v-card
         color="transparent"
@@ -21,7 +29,7 @@
           <v-tab>RCG</v-tab>
 
           <v-tab-item>
-            <v-row>
+            <v-row class="pb-5">
               <v-col md="6" class="mx-auto">
                   <v-data-table
                     :headers="batting_headers"
@@ -32,13 +40,9 @@
                     disable-sort
                     :items-per-page=-1
                   >
-                    <template slot="items" slot-scope="props">
-                      <td>{{ props.item.name }}</td>
-                      <td class="text-xs-right">{{ props.item.calories }}</td>
-                      <td class="text-xs-right">{{ props.item.fat }}</td>
-                      <td class="text-xs-right">{{ props.item.carbs }}</td>
-                      <td class="text-xs-right">{{ props.item.protein }}</td>
-                      <td class="text-xs-right">{{ props.item.iron }}</td>
+                    <template v-slot:[`item.name`]="{ item }">
+                      {{ item.name }}
+                      <div class="text-caption font-weight-light grey--text">{{ item.status }}</div>
                     </template>
                     <template
                       v-slot:[`body.append`]="{ headers }"
@@ -65,14 +69,6 @@
                     disable-sort
                     :items-per-page=-1
                   >
-                    <template slot="items" slot-scope="props">
-                      <td>{{ props.item.name }}</td>
-                      <td class="text-xs-right">{{ props.item.calories }}</td>
-                      <td class="text-xs-right">{{ props.item.fat }}</td>
-                      <td class="text-xs-right">{{ props.item.carbs }}</td>
-                      <td class="text-xs-right">{{ props.item.protein }}</td>
-                      <td class="text-xs-right">{{ props.item.iron }}</td>
-                    </template>
                   </v-data-table>
               </v-col>
             </v-row>
@@ -123,6 +119,7 @@
         desserts: [
           {
             name: 'P. Madubashana',
+            status: 'c J. Kaushal b N. Jayawardana',
             calories: 22,
             fat: 45,
             carbs: 2,
@@ -131,6 +128,7 @@
           },
           {
             name: 'H. Achintha',
+            status: 'b H. De Silva',
             calories: 3,
             fat: 10,
             carbs: 0,
@@ -139,6 +137,7 @@
           },
           {
             name: 'D. Kalupahana',
+            status: 'lbw b M. Tharupathi',
             calories: 37,
             fat: 100,
             carbs: 4,
@@ -147,6 +146,7 @@
           },
           {
             name: 'D. Induwara',
+            status: 'c H. De Silva b N. Jayawardana',
             calories: 3,
             fat: 10,
             carbs: 0,
@@ -155,6 +155,7 @@
           },
           {
             name: 'C. De Silva',
+            status: 'c H. De Silva b S. Abishek',
             calories: 1,
             fat: 15,
             carbs: 0,
@@ -163,6 +164,7 @@
           },
           {
             name: 'T. Dilshan',
+            status: 'c H. De Silva b S. Abishek',
             calories: 0,
             fat: 3,
             carbs: 0,
@@ -171,6 +173,7 @@
           },
           {
             name: 'H. Gallage',
+            status: 'c B. Manohara b N. Jayawardana',
             calories: 39,
             fat: 96,
             carbs: 4,
@@ -179,6 +182,7 @@
           },
           {
             name: 'R. Hettiarachchi',
+            status: 'c H. De Silva b S. Abishek',
             calories: 0,
             fat: 6,
             carbs: 0,
@@ -187,6 +191,7 @@
           },
           {
             name: 'S. Hasaranga',
+            status: 'lbw b N. Jayawardana',
             calories: 9,
             fat: 22,
             carbs: 1,
@@ -195,6 +200,7 @@
           },
           {
             name: 'K. Madusha',
+            status: 'run out(S. Abishek)',
             calories: 2,
             fat: 4,
             carbs: 0,
@@ -203,6 +209,7 @@
           },
           {
             name: 'K. Rukshan',
+            status: 'not out',
             calories: 0,
             fat: 3,
             carbs: 0,
