@@ -374,6 +374,7 @@
                 color="orange accent-3"
                 dark
                 large
+                to="scorecard"
               >
                 SCORECARD
               </v-btn>
