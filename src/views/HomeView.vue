@@ -292,6 +292,8 @@
       <v-footer
         color="transparent"
         padless
+        inset
+        class="py-12"
       >
         <v-col
           class="text-center"
@@ -306,7 +308,7 @@
 <script>
 
 import _ from 'lodash';
-import { collection, doc, query, onSnapshot } from "firebase/firestore";
+import { collection, doc, query, onSnapshot, getDoc } from "firebase/firestore";
 
 import db from '../db.js';
 
@@ -338,14 +340,25 @@ import db from '../db.js';
         rcg_active: false,
         player1_batting: false,
         player2_batting: false,
-        message: null
+        message: null,
+        messageReqRR: false,
+        first_batting_team: null,
+        second_batting_team: null
       }
     },
 
     components: {
     },
 
-    mounted(){
+    async mounted(){
+
+      const configRef = doc(db, "main", "config");
+      const configSnap = await getDoc(configRef);
+
+      if (configSnap.exists()) {
+        this.first_batting_team = _.get(configSnap.data().inningOrder[0], 'team', null);
+        this.second_batting_team = _.get(configSnap.data().inningOrder[1], 'team', null);
+      }
 
       const q = query(collection(db, "innings"));
       onSnapshot(q, (querySnapshot) => {
@@ -399,8 +412,38 @@ import db from '../db.js';
           }
 
           this.message = doc.data().message;
+          this.messageReqRR = doc.data().messageReqRR;
 
+          if (this.messageReqRR){
+            var toWinScore = 0;
+            var remainBalls = 300 - doc.data().balls;
+            var remainOvers = Math.floor(remainBalls/6)+(remainBalls%6)/10;
+            var currentBatting = null;
+            var remainBO = null
+
+            if (remainBalls > 100){
+              remainBO = remainOvers + " overs";
+            }else {
+              remainBO = remainBalls + " balls";
+            }
+            
+            if (this.first_batting_team === "mcg"){
+              toWinScore = this.mcg_score - this.rcg_score;
+              currentBatting = "RCG"
+            }else if (this.first_batting_team === "rcg"){
+              toWinScore = this.rcg_score - this.mcg_score;
+              currentBatting = "MCG"
+            }
+
+            var RRR = (toWinScore/remainBalls)*6;
+
+            if(toWinScore > 0) {
+              this.message = currentBatting + " require " + toWinScore + " runs in " + remainBO + " to win | Req RR: " + RRR.toFixed(2);
+            }
+          }
       });
+
+
     }
   }
 </script>
