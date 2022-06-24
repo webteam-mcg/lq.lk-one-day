@@ -350,6 +350,10 @@ import db from '../db.js';
     components: {
     },
 
+    beforeCreate() {
+      this.$OneSignal.showSlidedownPrompt();
+    },
+
     async mounted(){
 
       const configRef = doc(db, "main", "config");
