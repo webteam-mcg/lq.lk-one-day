@@ -1,5 +1,18 @@
 <template>
   <div>
+      <v-banner
+        v-if="deferredPrompt"
+        color="info"
+        dark
+        class="text-left"
+      >
+        Get our free app. It won't take up space on your phone and also works offline!
+        
+        <template v-slot:actions>
+          <v-btn text @click="dismiss">Dismiss</v-btn>
+          <v-btn text @click="install">Install</v-btn>
+        </template>
+      </v-banner>
     <v-toolbar flat color="transparent">
       <img :src="require('../assets/logo.png')" height="30"/>
     </v-toolbar>
@@ -317,6 +330,7 @@ import db from '../db.js';
 
     data: function() {
       return {
+        deferredPrompt: null,
         mcg_score: 0,
         mcg_wickets: 0,
         mcg_rr: 0.0,
@@ -446,8 +460,25 @@ import db from '../db.js';
             }
           }
       });
+    },
 
-
-    }
+      created() {
+        window.addEventListener("beforeinstallprompt", e => {
+          e.preventDefault();
+          // Stash the event so it can be triggered later.
+          this.deferredPrompt = e;
+        });
+    window.addEventListener("appinstalled", () => {
+          this.deferredPrompt = null;
+        });
+      },
+      methods: {
+        async dismiss() {
+          this.deferredPrompt = null;
+        },
+        async install() {
+          this.deferredPrompt.prompt();
+        }
+      }
   }
 </script>
