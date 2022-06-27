@@ -4,7 +4,7 @@ module.exports = defineConfig({
     'vuetify'
   ],
   pwa: {
-    name: 'My App',
+    name: 'lq.lk',
     themeColor: '#FF9100',
     msTileColor: 'msTileColor',
     appleMobileWebAppCapable: 'yes',

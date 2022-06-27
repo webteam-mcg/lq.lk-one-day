@@ -2,11 +2,11 @@
   <div>
       <v-banner
         v-if="deferredPrompt"
-        color="info"
+        color="grey darken-3"
         dark
         class="text-left"
       >
-        Get our free app. It won't take up space on your phone and also works offline!
+        Install the LQ web app for a better experience
         
         <template v-slot:actions>
           <v-btn text @click="dismiss">Dismiss</v-btn>
