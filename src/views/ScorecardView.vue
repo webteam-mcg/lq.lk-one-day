@@ -218,6 +218,7 @@ import db from '../db.js';
 
         econ = doc.data().score/overs
         bowling_row.econ = econ.toFixed(2);
+        if (isNaN(econ)) bowling_row.econ = 0.00;
 
         this.first_bowling.push(bowling_row);
       }
@@ -229,6 +230,7 @@ import db from '../db.js';
 
         econ = doc.data().score/overs
         bowling_row.econ = econ.toFixed(2);
+        if (isNaN(econ)) bowling_row.econ = 0.00;
 
         this.second_bowling.push(bowling_row);
       }
@@ -245,12 +247,14 @@ import db from '../db.js';
       if (doc.data().team === this.first_batting_team && doc.data().inning === 1){
         sr = (doc.data().score/doc.data().balls)*100
         batting_row.sr = sr.toFixed(2);
+        if (isNaN(sr)) batting_row.sr = 0.00;
         this.first_batting.push(batting_row);
       }
 
       if (doc.data().team === this.second_batting_team && doc.data().inning === 1){
         sr = (doc.data().score/doc.data().balls)*100
         batting_row.sr = sr.toFixed(2);
+        if (isNaN(sr)) batting_row.sr = 0.00;
         this.second_batting.push(batting_row);
       }
     });

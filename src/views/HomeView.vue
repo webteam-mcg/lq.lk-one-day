@@ -143,7 +143,10 @@
             </v-col>
             </v-row>
             </div>
-          <div class="d-sm-none mb-2">
+          <div
+            v-if="player1_name"
+            class="d-sm-none mb-2"
+          >
             <v-slide-group>
               <v-slide-item>
                 <span class="mx-2 my-auto text-subtitle-2">This Over</span>
@@ -163,7 +166,9 @@
               </v-slide-item>
             </v-slide-group>
             </div>
-            <div class="d-none d-sm-block">
+            <div
+              v-if="player1_name"
+              class="d-none d-sm-block">
             <v-row
               class="mb-6"
               justify="center"
@@ -219,7 +224,9 @@
               </v-col>
             </v-row>
             </div>
-            <div class="d-sm-none">
+            <div
+              v-if="player1_name"
+              class="d-sm-none">
               <v-list
                 color="transparent"
               >
@@ -288,7 +295,9 @@
                 </v-list-item>
               </v-list>
             </div>
-          <v-row>
+          <v-row
+             v-if="player1_name"
+          >
             <v-col class="text-center">
               <v-btn
                 color="orange accent-3"
@@ -385,13 +394,17 @@ import db from '../db.js';
             this.mcg_score = doc.data().score;
             this.mcg_wickets = doc.data().wickets;
             this.mcg_overs = Math.floor(doc.data().balls/6)+(doc.data().balls%6)/10;
-            this.mcg_rr = (this.mcg_score/this.mcg_overs).toFixed(2);
+            var mcg_rr = (this.mcg_score/this.mcg_overs).toFixed(2);
+            if(isNaN(mcg_rr))  mcg_rr = 0;
+            this.mcg_rr = mcg_rr;
           }
           if (doc.data().team === "rcg" && doc.data().inning === 1){
             this.rcg_score = doc.data().score;
             this.rcg_wickets = doc.data().wickets;
             this.rcg_overs = Math.floor(doc.data().balls/6)+(doc.data().balls%6)/10;
-            this.rcg_rr = (this.rcg_score/this.rcg_overs).toFixed(2);
+            var rcg_rr = (this.rcg_score/this.rcg_overs).toFixed(2);
+            if (isNaN(rcg_rr)) rcg_rr = 0;
+            this.rcg_rr = rcg_rr;
           }
         });
       });
