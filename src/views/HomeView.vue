@@ -459,10 +459,10 @@ import db from '../db.js';
             }
             
             if (this.first_batting_team === "mcg"){
-              toWinScore = this.mcg_score - this.rcg_score;
+              toWinScore = (this.mcg_score + 1) - this.rcg_score;
               currentBatting = "RCG"
             }else if (this.first_batting_team === "rcg"){
-              toWinScore = this.rcg_score - this.mcg_score;
+              toWinScore = (this.rcg_score + 1) - this.mcg_score;
               currentBatting = "MCG"
             }
 
