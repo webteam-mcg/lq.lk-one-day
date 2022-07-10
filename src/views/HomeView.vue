@@ -116,7 +116,7 @@
                 v-bind:class="{ 'grey--text': mcg_active }"
               >
                 <div class="text-center text-body-1 grey--text">RCG</div>
-                <div class="text-center text-h5 grey--text">{{rcg_overs}}/{{rcg_wickets}}</div>
+                <div class="text-center text-h5 grey--text">{{rcg_score}}/{{rcg_wickets}}</div>
                 <div class="text-center text-subtitle-1 grey--text">RR: {{rcg_rr}}</div>
                 <div class="text-center text-subtitle-1 grey--text">Overs: {{rcg_overs}}/50</div>
               </v-col>
