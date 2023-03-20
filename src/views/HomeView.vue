@@ -1,23 +1,10 @@
 <template>
   <div>
-      <v-banner
-        v-if="deferredPrompt"
-        color="grey darken-3"
-        dark
-        class="text-left"
-      >
-        Install the LQ web app for a better experience
-        
-        <template v-slot:actions>
-          <v-btn text @click="dismiss">Dismiss</v-btn>
-          <v-btn text @click="install">Install</v-btn>
-        </template>
-      </v-banner>
     <v-toolbar flat color="transparent">
       <img :src="require('../assets/logo.png')" height="30"/>
     </v-toolbar>
       <div class="ml-sm-10 mr-sm-10 ml-2 mr-2">
-        <div class="text-center text-sm-subtitle-1 text-body-2">Mahinda Richmond One Day Cricket Encounter | Mahinda College Ground</div>
+        <div class="text-center text-sm-subtitle-1 text-body-2">Mahinda Richmond One Day Cricket Encounter | Galle International Cricket Stadium</div>
         <v-divider></v-divider>
         <div class="text-center text-sm-h6 text-body-1 mt-5 mb-5">{{message}}</div>
         <v-container>
@@ -373,10 +360,6 @@ import db from '../db.js';
     components: {
     },
 
-    beforeCreate() {
-      this.$OneSignal.showSlidedownPrompt();
-    },
-
     async mounted(){
 
       const configRef = doc(db, "main", "config");
@@ -474,24 +457,5 @@ import db from '../db.js';
           }
       });
     },
-
-      created() {
-        window.addEventListener("beforeinstallprompt", e => {
-          e.preventDefault();
-          // Stash the event so it can be triggered later.
-          this.deferredPrompt = e;
-        });
-    window.addEventListener("appinstalled", () => {
-          this.deferredPrompt = null;
-        });
-      },
-      methods: {
-        async dismiss() {
-          this.deferredPrompt = null;
-        },
-        async install() {
-          this.deferredPrompt.prompt();
-        }
-      }
   }
 </script>
