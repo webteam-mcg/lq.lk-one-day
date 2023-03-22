@@ -283,19 +283,42 @@
               </v-list>
             </div>
           <v-row
-             v-if="player1_name"
+            justify="center"
+            v-if="player1_name"
           >
-            <v-col class="text-center">
-              <v-btn
-                color="orange accent-3"
-                dark
-                large
-                to="scorecard"
-              >
-                SCORECARD
-              </v-btn>
-            </v-col>
-          </v-row>
+          <v-col cols="12" md="10" lg="7">
+            <div class="text-center">
+              <div>
+                <v-btn
+                  class="ma-5"
+                  color="red darken-4"
+                  dark
+                  x-large
+                  href="https://www.youtube.com/live/QLKoXHFLe7o" 
+                  target="_blank"
+                >
+                  Live 
+                  <v-icon 
+                    dark
+                    large
+                    right
+                  >
+                    mdi-play-circle-outline
+                  </v-icon>
+                </v-btn>
+                <v-btn
+                  color="orange accent-3"
+                  dark
+                  x-large
+                  to="scorecard"
+                  outlined
+                >
+                  SCORECARD
+                </v-btn>
+              </div>
+            </div>
+          </v-col>
+        </v-row>
         </v-container>
       </div>
       <v-footer
