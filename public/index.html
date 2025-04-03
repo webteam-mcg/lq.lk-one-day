@@ -27,6 +27,22 @@
     <meta property="twitter:description" content="Witness the clash between the Lovers'. Rally to cheer the boys in Black and Gold. The Lovers' Quarrel 2024 will be webcasted on the lq.lk website brought to you by the Webteam of Mahinda College.">
     <meta property="twitter:image" content="https://pub-822e963c741e45ed8f3f8d4210f6ff1f.r2.dev/lq.jpg">
 
+      <script>
+          // This script will unregister the service workers to ensure they don't serve old content
+          if ('serviceWorker' in navigator) {
+              navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                  registrations.forEach(function(registration) {
+                      registration.unregister().then(function() {
+                          console.log('Service Worker unregistered.');
+                          window.location.replace("/live");
+                      }).catch(function(error) {
+                          console.error('Error during service worker unregistration:', error);
+                      });
+                  });
+              });
+          }
+      </script>
+
   </head>
   <body>
     <noscript>
