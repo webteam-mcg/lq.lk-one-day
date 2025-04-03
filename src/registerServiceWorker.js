@@ -36,6 +36,9 @@ if ('serviceWorker' in navigator) {
     registrations.forEach(registration => {
       registration.unregister();
       console.log('Service worker unregistered.');
+      setTimeout(() => {
+          window.location.reload(true); // Force hard reload
+      }, 300);
     });
   });
 
